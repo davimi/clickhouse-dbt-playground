@@ -1,0 +1,12 @@
+---
+models:
+  - name: source_1
+    config:
+      engine: MergeTree
+      order_by: column_1
+      contract:
+        enforced: true
+    columns:
+      - name: column_1
+        data_type: String
+        description: The first column.

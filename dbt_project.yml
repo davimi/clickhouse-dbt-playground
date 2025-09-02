@@ -1,0 +1,25 @@
+---
+name: "rti"
+version: "1.0.0"
+config-version: 2
+
+profile: "testing"
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+seed-paths: ["seeds"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  rti:
+    +contract:
+      enforced: true
+    models:
+      +materialized: materialized_view
+
+flags:
+  send_anonymous_usage_stats: false

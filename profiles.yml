@@ -1,0 +1,20 @@
+---
+testing:
+  target: local # default
+  outputs:
+    local:
+      type: clickhouse
+      host: localhost
+      user: dbt
+      password: dbt_password
+      port: 8123
+      schema: models
+      threads: 1
+    local-docker-compose:
+      type: clickhouse
+      host: clickhouse
+      user: dbt
+      password: dbt_password
+      port: 8123
+      schema: models
+      threads: 1

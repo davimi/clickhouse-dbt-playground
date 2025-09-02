@@ -1,0 +1,14 @@
+---
+selectors:
+  - name: default
+    description: >
+      Execute objects that match one of the following conditions:
+        1. Had their definition changed since last load
+        2. Are downstream dependencies of models from point 1
+        3. Are models materialized as tables
+    definition:
+      union:
+        # Objects that were modified since last load and their downstream dependencies
+        - "state:modified+"
+        # Models that are materialized as tables.
+        - "config.materialized:table"

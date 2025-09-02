@@ -1,0 +1,13 @@
+CREATE DATABASE IF NOT EXISTS models;
+CREATE DATABASE IF NOT EXISTS sources;
+
+-- dbt user
+CREATE USER IF NOT EXISTS dbt IDENTIFIED BY 'dbt_password';
+GRANT SHOW, SELECT, INSERT, ALTER, CREATE, DROP, TRUNCATE, OPTIMIZE, dictget ON models.* TO dbt WITH GRANT OPTION;
+GRANT SHOW, SELECT, INSERT, ALTER, CREATE, DROP, TRUNCATE, OPTIMIZE, dictget ON sources.* TO dbt;
+
+-- sources
+CREATE TABLE IF NOT EXISTS sources.source_1 (
+    column_1 String
+) ENGINE = MergeTree()
+ORDER BY column_1;

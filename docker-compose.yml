@@ -1,0 +1,27 @@
+---
+services:
+  clickhouse:
+    image: "clickhouse/clickhouse-server:25.7"
+    ports:
+      - 8123:8123 # http port
+      - 9000:9000 # native protocol port
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "localhost:8123/ping"]
+      interval: 5s
+    volumes:
+      - ./scripts/bootstrap/clickhouse_01_init_database.sql:/docker-entrypoint-initdb.d/clickhouse_01_init_database.sql
+    environment:
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: "1"
+
+  dbt:
+    build:
+      dockerfile: Dockerfile
+    platform: linux/amd64
+    command: poetry run dbt run --profiles-dir . --debug --target local-docker-compose
+    environment:
+      DBT_DEBUG: true
+      CLICKHOUSE_DBT_USER_NAME: "dbt"
+      CLICKHOUSE_DBT_USER_PASSWORD: "dbt_password"
+    depends_on:
+      clickhouse:
+        condition: service_healthy

@@ -1,0 +1,11 @@
+[tool.poetry]
+package-mode = false
+name = "clickhouse-dbt-playground"
+description = "Playing around with dbt and ClickHouse"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+dbt-core = "~=1.9"
+dbt-clickhouse = "~=1.9.2"
+python = "~=3.11.0"
+
